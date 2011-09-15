@@ -1,6 +1,6 @@
 safe:        false
 auto:        true
-server:      false
+server:      true
 server_port: 4000
 base-url:    /
 
