@@ -3,16 +3,47 @@
 	<meta charset="utf-8">	
 	<title>{{ page.title }}</title>
 	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css">
-		<link rel="stylesheet" href="/css/play-curso.css">
-		<link rel="stylesheet" href="/css/syntax.css">
+	<link rel="stylesheet" href="css/play-curso.css">
+	<link rel="stylesheet" href="css/syntax.css">
 </head>
 
 <body>
-
+	
 	<div class="container">
 	<div class="row">
-		<div class="span4 columns">
-			{% include indice.html %}							
+		<div class="span4 columns" id="menu">
+			<ul>
+				<li><a href="/">Presentación</a></li>
+				<li>Introducción
+					<ul>
+						<li><a href="autor.html">Autor</a></li>
+						<li><a href="playintro.html">¿Qué es Play?</a></li>
+					</ul>
+				</li>
+				<li>Primera aplicación
+					<ul>
+						<li><a href="primera-objetivo.html">Objetivo</a></li>
+						<li><a href="instalacion.html">Instalación de play</a></li>
+						<li><a href="new.html">Creación de un nuevo proyecto</a></li>
+						<li><a href="mvc.html">MVC</a></li>
+						<li><a href="properties.html">Simulación de properties</a></li>
+						<li><a href="model.html">Modelo</a></li>
+						<li><a href="controller.html">Controlador</a></li>
+						<li><a href="view.html">Vista</a></li>
+					</ul>
+				</li>
+
+				<li>Utilización de módulo
+					<ul>
+						<li>Secure</li>
+						<li>CRUD</li>
+					</ul>	
+				</li>
+
+				<li>Formularios</li>
+				<li>Validación</li>
+				<li>Ajax</li>
+			</ul>
 		</div>
 
 		<div class="span12 columns">
@@ -27,11 +58,6 @@
 			
 		</div>	
 	</div>
-	</div>	
-
-
-	
-	
-
+	</div>
 </body>
 </html>
