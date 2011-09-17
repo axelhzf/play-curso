@@ -1,0 +1,6 @@
+#{extends 'main.html' /} 
+#{set title:'Timeline' /} 
+
+#{list items:tweets, as:'tweet'} 
+	#{renderTweet tweet /} 
+#{/list}

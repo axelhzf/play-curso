@@ -1,0 +1,11 @@
+#{extends 'main.html' /} 
+#{set title:'Estadísticas' /} 
+
+#{grafica items:user_tweets, 
+	      title:'Tweets de usuarios', 
+	      xTitle:'Usuario', 
+	      yTitle:'Tweets', 
+	      id:'user_tweet', 
+	      width:500, 
+	      height:400 
+/}

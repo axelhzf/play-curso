@@ -1,0 +1,20 @@
+<script src="https://www.google.com/jsapi"></script>
+<script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '${_xTitle}');
+        data.addColumn('number', '${_yTitle}');
+                        
+        data.addRows(${_items.size()});
+        #{list items:_items, as:'item'}
+        	data.setValue(${item_index -1}, 0, '${item[0]}');
+        	data.setValue(${item_index -1}, 1, ${item[1]});        
+        #{/list}
+        
+        var chart = new google.visualization.ColumnChart(document.getElementById('${_id}'));
+        chart.draw(data, {width: ${_width}, height: ${_height}, title: '${_title}'});
+      }
+</script>
+<div id="${_id}"></div>
