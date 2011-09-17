@@ -1,10 +1,12 @@
 User(user1):
    username: user1
    password: user1
+   admin: true
 
 User(user2):
    username: user2
    password: user2
+   admin: true
    follows : [user1]
 
 User(user3):

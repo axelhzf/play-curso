@@ -1,6 +1,14 @@
 #{extends 'main.html' /} 
 #{set title:'Timeline' /} 
 
+#{set 'secondaryContent'}
+<ul>
+	<li>Following: </li>
+	<li>Followers: </li>
+</ul>
+#{/set}
+
+
 #{list items:tweets, as:'tweet'} 
 	#{renderTweet tweet /} 
 #{/list}

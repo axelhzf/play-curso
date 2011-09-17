@@ -13,6 +13,8 @@ public class User extends Model {
 
 	public String password;
 
+	public boolean admin;
+	
 	@ManyToMany
 	public List<User> follows;
 
@@ -20,6 +22,7 @@ public class User extends Model {
 		super();
 		this.username = username;
 		this.password = password;
+		this.admin = false;
 		follows = new ArrayList<User>();
 	}
 }
