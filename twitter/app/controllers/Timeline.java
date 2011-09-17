@@ -21,4 +21,12 @@ public class Timeline extends Controller {
         List<Object[]> user_tweets = JPA.em().createQuery("select t.author.username, count(t) from Tweet t group by t.author").getResultList();
         render(user_tweets);
     }
+    
+    public static void create(String tweet){
+    	checkAuthenticity();
+    	Tweet t = new Tweet(tweet, Security.userConnected());
+    	t.save();
+    	index();
+    }
+    
 }

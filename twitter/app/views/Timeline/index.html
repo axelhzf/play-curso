@@ -8,6 +8,12 @@
 </ul>
 #{/set}
 
+#{form @Timeline.create()}
+	<div class="clearfix">
+		<textarea class="xxlarge" name="tweet" rows="3"></textarea>
+	</div>
+	<input type="submit" class="btn primary" value="Tweet">
+#{/form}
 
 #{list items:tweets, as:'tweet'} 
 	#{renderTweet tweet /} 

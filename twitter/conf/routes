@@ -7,6 +7,7 @@
 # Home page
 GET     /                                       Timeline.index
 GET     /stats									Timeline.stats
+POST    /create									Timeline.create
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
