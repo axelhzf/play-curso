@@ -3,3 +3,4 @@
 require:
     - play
     - play -> secure
+    - net.sf.flexjson -> flexjson 2.1

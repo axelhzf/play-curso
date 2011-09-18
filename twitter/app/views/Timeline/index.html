@@ -8,21 +8,81 @@
 </ul>
 #{/set}
 
-#{ifErrors}
-	<div class="alert-message error">
-	#{errors}
-       <p>${error}</p>
-   #{/errors}
-	</div>
-#{/ifErrors}
 
-#{form @Timeline.create()}
+<div class="alert-message error" data-bind="visible: error() != null">
+	<a class="close" href="#" data-bind="click: clearError">×</a>
+	<p data-bind="text: error"></p>
+</div>
+
+
+
+<form data-bind="submit:createTweet">
 	<div class="clearfix">
-		<textarea class="xxlarge" name="tweet" rows="3"></textarea>
+		<textarea class="xxlarge" name="tweet" rows="3" data-bind="value:newTweet"></textarea>
 	</div>
 	<input type="submit" class="btn primary" value="Tweet">
-#{/form}
+</form>
 
-#{list items:tweets, as:'tweet'} 
-	#{renderTweet tweet /} 
-#{/list}
+<div data-bind="template :{name:'renderTweet', foreach:tweets}">
+
+</div>
+
+<script type="text/html" id="renderTweet">
+<div class="tweet">
+    <div class="tweet-author">{{= author}}</div>
+    <div class="tweet-msg">{{= msg}}</div>
+    <div class="tweet-date">{{= date.toLocaleDateString()}}</div>
+</div>
+</script>
+
+<script>
+	var Tweet = function(msg, date, author){
+		this.msg = msg;
+		this.date = date;
+		this.author = author;
+	}
+	
+	var viewModel = {
+		newTweet : ko.observable(''),
+		error : ko.observable(null),
+		tweets : ko.observableArray([])
+	}
+	
+	function parseTweet(tweet){
+		return new Tweet(tweet.msg, new Date(tweet.date), tweet.author.username);
+	}
+	
+	viewModel.updateTweets = function(){
+		$.get('@{Api.tweetsAll()}', function(data){
+			var tweets = $.map(data, function(item){
+				return parseTweet(item);
+			})
+			viewModel.tweets(tweets);
+		});
+	}
+	
+	viewModel.createTweet = function(){
+		var action = #{jsAction @Api.tweetsNew(':msg')/}
+		$.get(action({msg : viewModel.newTweet()}), function(data){
+			if(data.status === 'OK'){
+				viewModel.tweets.unshift(parseTweet(data.result));
+				viewModel.newTweet('');
+				viewModel.clearError();
+			}else{
+				viewModel.error(data.message);
+			}
+		});
+		return false;
+	}
+	
+	viewModel.clearError = function(){
+		viewModel.error(null);
+		return false;
+	}
+	
+	ko.applyBindings(viewModel);
+	
+	$(function(){
+		viewModel.updateTweets();
+	});
+</script>
