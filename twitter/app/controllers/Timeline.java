@@ -25,7 +25,12 @@ public class Timeline extends Controller {
     public static void create(String tweet){
     	checkAuthenticity();
     	Tweet t = new Tweet(tweet, Security.userConnected());
-    	t.save();
+    	t.validateAndSave();
+    	
+    	if(validation.hasErrors()){
+    		validation.keep();
+    	}
+    	
     	index();
     }
     

@@ -8,6 +8,14 @@
 </ul>
 #{/set}
 
+#{ifErrors}
+	<div class="alert-message error">
+	#{errors}
+       <p>${error}</p>
+   #{/errors}
+	</div>
+#{/ifErrors}
+
 #{form @Timeline.create()}
 	<div class="clearfix">
 		<textarea class="xxlarge" name="tweet" rows="3"></textarea>
