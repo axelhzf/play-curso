@@ -16,9 +16,9 @@ la interfaz de usuario, y la lógica de control en tres componentes distintos.
 * Vista
 * Controlador
 
-![Diagrama MVC](/images/diagrams_mvc.png)
+![Diagrama MVC](images/diagrams_mvc.png)
 
-![Diagrama MVC con router](/images/diagrams_path.png)
+![Diagrama MVC con router](images/diagrams_path.png)
 
 
 ## Análisis de una petición

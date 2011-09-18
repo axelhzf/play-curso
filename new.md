@@ -41,7 +41,7 @@ Se puede cambiar en el fichero de configuración modificando el valor de <strong
 </div>
 
 
-<img src="/images/primera.png" width="700"/>
+<img src="images/primera.png" width="700"/>
 
 ## Estructura del proyecto creado
 

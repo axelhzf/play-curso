@@ -4,4 +4,4 @@ layout: default
 ---
 
 ## Crear twitter
-![twitter](/images/ballena.gif)
+![twitter](images/ballena.gif)
