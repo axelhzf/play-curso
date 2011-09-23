@@ -2,11 +2,27 @@
 #{set title:'Timeline' /} 
 
 #{set 'secondaryContent'}
-<ul>
-	<li>Following: </li>
-	<li>Followers: </li>
-</ul>
+<div>
+	<h3 data-bind="text: userInfo().username"></h3>
+	<ul>
+		<li>Following: <span data-bind="text: userInfo().following"></span></li>
+		<li>Followers: <span data-bind="text: userInfo().followers"></span></li>
+	</ul>
+	
+	<div data-bind="visible: viewTimeline() == false">
+		<div data-bind="visible : connectedFollowingUsername() == false">
+			<a href="#" class="btn" data-bind="click: followUser">Follow</a>
+		</div>
+		
+		<div data-bind="visible : connectedFollowingUsername">
+			<a href="#" class="btn" data-bind="click: unfollowUser">Unfollow</a>
+		</div>
+	</div>
+</div>
 #{/set}
+
+
+
 
 
 <div class="alert-message error" data-bind="visible: error() != null">
@@ -29,12 +45,14 @@
 
 <script type="text/html" id="renderTweet">
 <div class="tweet">
-    <div class="tweet-author">{{= author}}</div>
+    <div class="tweet-author"><a href="#" data-bind="click: function(){ viewModel.username(author) }">{{= author}}</a></div>
     <div class="tweet-msg">{{= msg}}</div>
     <div class="tweet-date">{{= date.toLocaleDateString()}}</div>
 </div>
 </script>
 
+
+#{set 'endScript'}
 <script>
 	var Tweet = function(msg, date, author){
 		this.msg = msg;
@@ -42,25 +60,29 @@
 		this.author = author;
 	}
 	
+	var UserInfo = function(username, following, followers){
+		this.username = username;
+		this.following = following;
+		this.followers = followers;
+	}
+	
 	var viewModel = {
 		newTweet : ko.observable(''),
 		error : ko.observable(null),
-		tweets : ko.observableArray([])
+		tweets : ko.observableArray([]),
+		connectedUser : '${controllers.Security.userConnected().username}',
+		username : ko.observable(''),
+		userInfo : ko.observable(new UserInfo("", 0, 0)),
+		viewTimeline: ko.observable(true),
+		connectedFollowingUsername : ko.observable(null)
 	}
+	
+	ko.linkObservableToUrl(viewModel.username, "user");
 	
 	function parseTweet(tweet){
 		return new Tweet(tweet.msg, new Date(tweet.date), tweet.author.username);
 	}
-	
-	viewModel.updateTweets = function(){
-		$.get('@{Api.tweetsAll()}', function(data){
-			var tweets = $.map(data, function(item){
-				return parseTweet(item);
-			})
-			viewModel.tweets(tweets);
-		});
-	}
-	
+		
 	viewModel.createTweet = function(){
 		var action = #{jsAction @Api.tweetsNew(':msg')/}
 		$.get(action({msg : viewModel.newTweet()}), function(data){
@@ -80,9 +102,88 @@
 		return false;
 	}
 	
-	ko.applyBindings(viewModel);
 	
-	$(function(){
-		viewModel.updateTweets();
-	});
+	viewModel.username.subscribe(refresh);
+	
+	function refresh(user){
+		var username;
+		var connectedUser;
+		if(typeof user == 'undefined' || user === ''){
+			viewModel.viewTimeline(true);
+			username = '${controllers.Security.userConnected().username}';			
+		}else{
+			viewModel.viewTimeline(false);
+			username = user;
+		}
+		
+		var action = #{jsAction @Api.userInfo(':username')/};
+		
+		//Información del usuario
+		$.get(action({username : username}), function(data){
+			if(data.status === 'OK'){
+				viewModel.userInfo(new UserInfo(data.result.username, data.result.followsNumber, data.result.followersNumber));
+			}else{
+				viewModel.error(data.message);
+			}
+		});
+		
+		//Timeline o tweets de un usuario concreto
+		var url;
+		if(viewModel.viewTimeline()){
+			//Timeline
+			url = '@{Api.timeline}';
+		}else{
+			//Tweets de un usuario
+			var action = #{jsAction @Api.tweetsFromUser(':username')/};
+			url = action({username : username});
+		}
+		
+		//Recupera los tweets
+		$.get(url, function(data){	
+			if(data.status === 'OK'){
+				var tweets = $.map(data.result, function(item){
+					return parseTweet(item);
+				})
+				viewModel.tweets(tweets);
+			}else{
+				viewModel.error(data.message);
+			}
+		});
+		
+		//Información de si está siguiendo o no al usuario
+		if(!viewModel.viewTimeline()){
+			var action = #{jsAction @Api.isFollowing(':username')/};
+			var url = action({username : username});
+			$.get(url, function(data){
+				if(data.status === 'OK'){
+					viewModel.connectedFollowingUsername(data.result);
+				}else{
+					viewModel.error(data.message);
+				}
+			});
+		}	
+	}
+	
+	viewModel.followUser = function(){
+		var action = #{jsAction @Api.follow(':username')/};
+	 	var url = action({username : viewModel.username()});
+	 	$.get(url, function(data){
+	 		if(data.status === 'OK'){
+	 			refresh(viewModel.username());
+	 		}
+	 	}); 
+	}
+	
+	viewModel.unfollowUser = function(){
+		var action = #{jsAction @Api.unfollow(':username')/};
+	 	var url = action({username : viewModel.username()});
+	 	$.get(url, function(data){
+	 		if(data.status === 'OK'){
+	 			refresh(viewModel.username());
+	 		}
+	 	}); 
+	}
+	
+	ko.applyBindings(viewModel);
 </script>
+#{/set}

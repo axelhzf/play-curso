@@ -12,6 +12,8 @@ POST    /create									Timeline.create
 GET     /api/tweets/fromUser/{username}              Api.tweetsFromUser
 GET     /api/tweets/all								 Api.tweetsAll
 GET     /api/tweets/new                              Api.tweetsNew
+GET     /api/user/{username}						 Api.userInfo
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

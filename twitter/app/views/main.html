@@ -15,6 +15,9 @@
         
         <script src="http://cloud.github.com/downloads/SteveSanderson/knockout/jquery.tmpl.js"/></script>
         <script src="http://cloud.github.com/downloads/SteveSanderson/knockout/knockout-1.2.1.js"></script>
+        #{script 'jquery.address-1.5.min.js' /}
+        <script src="http://learn.knockoutjs.com/scripts/lib/knockout.address.js"></script>
+        
         
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
@@ -69,5 +72,6 @@
 	</div>
 	<!-- /container -->
 
+	#{get 'endScript' /}
 </body>
 </html>
