@@ -2,13 +2,9 @@
 #{set title:'Timeline' /} 
 
 #{form @Timeline.search()}
-	<input type="text" name="query" value="${query}" class="xxlarge"/>
-	<input type="submit" class="btn primary" value="Buscar" />
+	<input type="text" name="query" value="${query}" class="xxlarge" placeholder="Busqueda" data-bind="value:query, valueUpdate:'afterkeydown'"/>
 #{/form}
 
-
-#{if tweets}
-<h3>Encontrados ${tweets.totalCount} tweets para la consulta '${query}'</h3>
 <table>
 	<thead>
 		<tr>
@@ -16,13 +12,42 @@
 			<th>Tweet</th>
 		</tr>
 	</thead>
-	<tbody>
-		#{list items:tweets.objects, as:'tweet'}
-		<tr>
-			<td>${tweet.id}</td>
-			<td>${tweet.msg}</td>	
-		</tr>		
-		#{/list}
+	<tbody data-bind="template:{name : 'tweet-row', foreach:tweets}">
+
 	</tbody>
 </table>
-#{/if}
+
+
+<script type="text/html" id="tweet-row">
+		<tr>
+			<td>{{= id}}</td>
+			<td>{{= msg}}</td>	
+		</tr>
+</script>
+
+#{set 'endScript'}
+<script>
+	viewModel = {
+		query : ko.observable('${query}'),
+		tweets : ko.observableArray([])
+	}
+	
+	function Tweet(id, msg){
+		this.id = id;
+		this.msg = msg;
+	}
+	
+	ko.dependentObservable(function() {
+    	if (this.lastQueryRequest) this.lastQueryRequest.abort();
+		var action = #{jsAction @Api.search(':query')/}
+    	this.lastQueryRequest = $.get(action({query : this.query()}), function(data){
+    		if(data.status === 'OK'){
+    			var tweets = $.map(data.result, function(item){return new Tweet(item.id, item.msg);});
+    			viewModel.tweets(tweets);		
+    		}
+    	});
+	}, viewModel);
+	
+	ko.applyBindings(viewModel);
+</script>
+#{/set}

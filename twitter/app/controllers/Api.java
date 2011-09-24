@@ -105,7 +105,7 @@ public class Api extends Controller {
 		ApiResponse resp = new ApiResponse();		
     	if(query != null && !query.isEmpty()){
     		resp.status = "OK";
-    		SearchResults<Tweet> tweets = ElasticSearch.search(QueryBuilders.fieldQuery("msg", query), Tweet.class);
+    		SearchResults<Tweet> tweets = ElasticSearch.search(QueryBuilders.prefixQuery("msg", query), Tweet.class);
     		resp.result = tweets.objects;
     	}else{
     		resp.status = "ERROR";
