@@ -48,3 +48,8 @@ app/views/search.html
 	<input type="submit" class="btn primary" value="Buscar"/>
 #{/form}
 {% endhighlight %}
+
+
+<div class="alert-message warning">
+	Puedes descargar el código desde <a href="https://github.com/axelhzf/play-curso/commit/27d48a228565533c9ec37919c8cbd7c05e90d64f">https://github.com/axelhzf/play-curso/commit/27d48a228565533c9ec37919c8cbd7c05e90d64f</a>
+</div>
