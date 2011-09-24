@@ -17,6 +17,11 @@
 	</tbody>
 </table>
 
+<h3>Buscar en Twitter <small>(y almacenarlos en la base de datos)</small></h3>
+#{form @Timeline.searchInTwitter()}
+	<input type="text" name="query" value="${query}" class="xxlarge" placeholder="Busqueda""/>
+	<input type="submit" class="btn primary" value="Buscar"/>
+#{/form}
 
 <script type="text/html" id="tweet-row">
 		<tr>

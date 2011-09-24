@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.elasticsearch.index.query.xcontent.QueryBuilders;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import flexjson.JSONSerializer;
 
 import models.Tweet;
 import models.User;
+import play.libs.WS;
 import play.modules.elasticsearch.ElasticSearch;
 import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.Controller;
@@ -114,5 +119,7 @@ public class Api extends Controller {
     	
     	renderJSON(new JSONSerializer().include("status", "message", "result.msg", "result.id").exclude("*").serialize(resp));
 	}
+	
+
 	
 }
