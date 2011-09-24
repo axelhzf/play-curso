@@ -1,0 +1,28 @@
+#{extends 'main.html' /} 
+#{set title:'Timeline' /} 
+
+#{form @Timeline.search()}
+	<input type="text" name="query" value="${query}" class="xxlarge"/>
+	<input type="submit" class="btn primary" value="Buscar" />
+#{/form}
+
+
+#{if tweets}
+<h3>Encontrados ${tweets.totalCount} tweets para la consulta '${query}'</h3>
+<table>
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Tweet</th>
+		</tr>
+	</thead>
+	<tbody>
+		#{list items:tweets.objects, as:'tweet'}
+		<tr>
+			<td>${tweet.id}</td>
+			<td>${tweet.msg}</td>	
+		</tr>		
+		#{/list}
+	</tbody>
+</table>
+#{/if}
