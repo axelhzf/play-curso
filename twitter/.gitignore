@@ -4,3 +4,7 @@ eclipse
 .project
 .settings
 tmp
+.DS_STORE
+lib
+modules
+data

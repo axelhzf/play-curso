@@ -2,10 +2,14 @@ package controllers;
 
 import java.util.List;
 
+import org.elasticsearch.index.query.xcontent.QueryBuilders;
+
 import flexjson.JSONSerializer;
 
 import models.Tweet;
 import models.User;
+import play.modules.elasticsearch.ElasticSearch;
+import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.Controller;
 import play.utils.Utils;
 import responses.ApiResponse;
@@ -16,7 +20,7 @@ public class Api extends Controller {
 	private static final JSONSerializer statusSerializer = new JSONSerializer().include("status", "message", "result").exclude("*");
 
 	public static void tweetsNew(String msg){
-		Tweet t = new Tweet(msg, Security.userConnected());
+		Tweet t = Tweet.create(msg, Security.userConnected());
 		t.validateAndSave();
 		ApiResponse resp = new ApiResponse();
 		if(validation.hasErrors()){
@@ -95,6 +99,20 @@ public class Api extends Controller {
 	    resp.status = "OK";
 	    resp.result = usuarioConectado.follows.contains(usuarioConsultado);
 	    renderJSON(statusSerializer.serialize(resp));
+	}
+	
+	public static void search(String query){
+		ApiResponse resp = new ApiResponse();		
+    	if(query != null && !query.isEmpty()){
+    		resp.status = "OK";
+    		SearchResults<Tweet> tweets = ElasticSearch.search(QueryBuilders.fieldQuery("msg", query), Tweet.class);
+    		resp.result = tweets.objects;
+    	}else{
+    		resp.status = "ERROR";
+    		resp.message = "Empty query";
+    	}
+    	
+    	renderJSON(new JSONSerializer().include("status", "message", "result.msg", "result.id").exclude("*").serialize(resp));
 	}
 	
 }

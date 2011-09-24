@@ -32,6 +32,7 @@
           <a class="brand" href="#">twitter-play</a>
           <ul class="nav">
             <li><a href="@{Timeline.index}">&{'inicio'}</a></li>
+            <li><a href="@{Timeline.search}">Buscador</a></li>
             #{secure.check 'isAdmin'}
             	<li><a href="@{Timeline.stats}">&{'estadisticas'}</a></li>
             #{/secure.check}
@@ -57,8 +58,13 @@
 				<h1>#{get 'title' /}</h1>
 			</div>
 			<div class="row">
+				#{if secondaryContent}
 				<div class="span10">#{doLayout /}</div>
 				<div class="span4">#{get 'secondaryContent' /}</div>
+				#{/if}
+				#{else}
+					<div class="span14">#{doLayout /}</div>
+				#{/else}
 			</div>
 		</div>
 

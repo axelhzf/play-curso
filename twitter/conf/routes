@@ -8,11 +8,15 @@
 GET     /                                       Timeline.index
 GET     /stats									Timeline.stats
 POST    /create									Timeline.create
+GET     /search									Timeline.search
+GET     /search/{query}							Timeline.search
 
 GET     /api/tweets/fromUser/{username}              Api.tweetsFromUser
 GET     /api/tweets/all								 Api.tweetsAll
 GET     /api/tweets/new                              Api.tweetsNew
 GET     /api/user/{username}						 Api.userInfo
+GET     /api/search									 Api.search
+GET     /api/search/{query}							 Api.search
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

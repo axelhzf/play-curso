@@ -4,3 +4,20 @@ require:
     - play
     - play -> secure
     - net.sf.flexjson -> flexjson 2.1
+    - play -> elasticsearch 0.1
+    - org.elasticsearch -> elasticsearch 0.16.2
+    - se.scalablesolutions.akka -> akka-amqp 1.1.2
+    
+    
+repositories:
+    - elasticsearch:
+        type: iBiblio
+        root: "http://oss.sonatype.org/content/repositories/releases/"
+        contains:
+            - org.elasticsearch -> *
+            
+    - akka:
+        type: iBiblio
+        root: "http://akka.io/repository/"
+        contains:
+            - se.scalablesolutions.akka -> *

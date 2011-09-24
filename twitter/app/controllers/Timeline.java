@@ -3,7 +3,12 @@ package controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.index.query.xcontent.QueryBuilders;
+
+import play.Logger;
 import play.db.jpa.JPA;
+import play.modules.elasticsearch.ElasticSearch;
+import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.Controller;
 import play.mvc.With;
 import models.*;
@@ -11,9 +16,8 @@ import models.*;
 @With(Secure.class)
 public class Timeline extends Controller {
 
-    public static void index(){
-        List<Tweet> tweets = Tweet.find("order by date desc").fetch();   
-        render(tweets);
+    public static void index(){   
+        render();
     }
 
     @Check("isAdmin")
@@ -24,7 +28,7 @@ public class Timeline extends Controller {
     
     public static void create(String tweet){
     	checkAuthenticity();
-    	Tweet t = new Tweet(tweet, Security.userConnected());
+    	Tweet t = Tweet.create(tweet, Security.userConnected());
     	t.validateAndSave();
     	
     	if(validation.hasErrors()){
@@ -32,6 +36,14 @@ public class Timeline extends Controller {
     	}
     	
     	index();
+    }
+    
+    public static void search(String query){
+    	if(query != null && !query.isEmpty()){
+    		SearchResults<Tweet> tweets = ElasticSearch.search(QueryBuilders.fieldQuery("msg", query), Tweet.class);
+    		render(tweets, query);
+    	}
+    	render();
     }
     
 }
