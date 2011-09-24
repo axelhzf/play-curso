@@ -121,6 +121,10 @@ app/views/Timeline/search.html
 {% endhighlight %}
 
 
+<div class="alert-message warning">
+Puedes descarga el código desde <a href="https://github.com/axelhzf/play-curso/commit/9836828e398fdf21e1880747a30692726b6460e5">https://github.com/axelhzf/play-curso/commit/9836828e398fdf21e1880747a30692726b6460e5</a>
+</div>
+
 
 ## Ejercicio
 
@@ -128,3 +132,84 @@ Implementar la búsqueda en tiempo real.
 
 * Crear un nuevo método en el API que permita realizar la búsqueda
 * A medida que el usuario va escribiendo en la caja de texto, realiza una nueva consulta
+
+## Solución
+
+app/controllers/Api.java
+
+{% highlight java linenos %}
+public static void search(String query){
+	ApiResponse resp = new ApiResponse();		
+	if(query != null && !query.isEmpty()){
+		resp.status = "OK";
+		SearchResults<Tweet> tweets = ElasticSearch.search(QueryBuilders.prefixQuery("msg", query), Tweet.class);
+		resp.result = tweets.objects;
+	}else{
+		resp.status = "ERROR";
+		resp.message = "Empty query";
+	}
+	
+	renderJSON(new JSONSerializer().include("status", "message", "result.msg", "result.id").exclude("*").serialize(resp));
+}
+{% endhighlight %}
+
+
+app/views/search.html
+
+{% highlight html linenos %}
+#{form @Timeline.search()}
+	<input type="text" name="query" value="${query}" class="xxlarge" placeholder="Busqueda" data-bind="value:query, valueUpdate:'afterkeydown'"/>
+#{/form}
+
+<table>
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Tweet</th>
+		</tr>
+	</thead>
+	<tbody data-bind="template:{name : 'tweet-row', foreach:tweets}">
+
+	</tbody>
+</table>
+
+
+<script type="text/html" id="tweet-row">
+		<tr>
+			<td>{{= id}}</td>
+			<td>{{= msg}}</td>	
+		</tr>
+</script>
+
+#{set 'endScript'}
+<script>
+	viewModel = {
+		query : ko.observable('${query}'),
+		tweets : ko.observableArray([])
+	}
+	
+	function Tweet(id, msg){
+		this.id = id;
+		this.msg = msg;
+	}
+	
+	ko.dependentObservable(function() {
+    	if (this.lastQueryRequest) this.lastQueryRequest.abort();
+		var action = #{jsAction @Api.search(':query')/}
+    	this.lastQueryRequest = $.get(action({query : this.query()}), function(data){
+    		if(data.status === 'OK'){
+    			var tweets = $.map(data.result, function(item){return new Tweet(item.id, item.msg);});
+    			viewModel.tweets(tweets);		
+    		}
+    	});
+	}, viewModel);
+	
+	ko.applyBindings(viewModel);
+</script>
+#{/set}
+{% endhighlight %}
+
+
+<div class="alert-message warning">
+Puedes bajarte la solución desde <a href="https://github.com/axelhzf/play-curso/commit/282c8e2f80168db994415db60121bddf1e6badc4">https://github.com/axelhzf/play-curso/commit/282c8e2f80168db994415db60121bddf1e6badc4</a>
+</div>
