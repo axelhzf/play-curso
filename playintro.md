@@ -2,8 +2,10 @@
 layout: default
 title: ¿Qué es Play?
 ---
-
-
+ 
+<blockquote>
+<p>“@finneycanhelp I really think that @playframework shows that most of the problems with Java are the frameworks, not the language”</p>
+</blockquote>
 
 ##[Play! Framework A revolution in the Java world](http://www.lunatech-research.com/sites/default/files/play-2011-08.pdf)
 Autores de la presentación:
