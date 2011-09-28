@@ -1,0 +1,126 @@
+#{extends 'main.html' /}
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Author</th>
+            <th>Text</th>
+        </tr>
+    </thead>
+    <tbody data-bind="template : {name : 'tweetsTableRow', foreach : filteredTweets}"></tbody>
+</table>
+
+<input type="checkbox" data-bind="value : editingMode" />
+<input type="text" data-bind="value : filterQuery, valueUpdate: 'afterkeydown'" />
+
+<div>
+Has seleccionado <span data-bind="text : selectedTweets().length"/> tweets
+</div>
+
+<div>
+    <a href="#" class="btn danger" data-bind="click : deleteSelectedTweets">Borrar seleccionados</a>
+</div>
+
+<script type="text/html" id="tweetsTableRow">
+    <tr>
+        <td><input type="checkbox" data-bind="value : selected" /></td>
+    {{if viewModel.editingMode()}}
+        <td><input type="text" data-bind="value : author"></td>
+        <td><input type="text" data-bind="value : text"></td>
+    {{else}}
+        <td>{{= author}}</td>
+        <td>{{= text}}</td>
+    {{/if}}
+    </tr>
+</script>
+
+<script>
+
+    function Tweet(author, text){
+        this.author = ko.observable(author);
+        this.text = ko.observable(text);
+        this.selected = ko.observable(false);
+    }
+
+    var viewModel = {
+        tweets : ko.observableArray([]),
+        filterQuery : ko.observable(''),
+        editingMode : ko.observable(false),
+        backupTweets : []
+    }
+
+    function stringContainsText(string, findText){
+        return string.indexOf(findText) != -1;
+    }
+
+    function stringContainsTextIgnoreCase(string, findText){
+        return string.toLowerCase().indexOf(findText.toLowerCase()) != -1;
+    }
+
+    function tweetMatchQuery(tweet, query) {
+        return stringContainsTextIgnoreCase(tweet.text(), query)
+               || stringContainsTextIgnoreCase(tweet.author(), query);
+    }
+
+    viewModel.filteredTweets = ko.dependentObservable(function(){
+        var result = [];
+        if(this.filterQuery()){
+            var query = this.filterQuery();
+            $.each(viewModel.tweets(), function(i, tweet){
+                var match = tweetMatchQuery(tweet, query);
+                if(match){
+                    result.push(tweet);
+                }
+            });
+        }else{
+            result = viewModel.tweets();
+        }
+        return result;
+    }, viewModel);
+
+    viewModel.selectedTweets = ko.dependentObservable(function(){
+        var result = [];
+        $.each(this.filteredTweets(), function(i, tweet){
+            if(tweet.selected()){
+                result.push(tweet);
+            }
+        });
+        return result;
+    }, viewModel);
+
+
+    function createBackup(){
+        viewModel.backupTweets = viewModel.tweets();
+    }
+
+    viewModel.restoreBackup = function(){
+        viewModel.tweets(viewModel.backupTweets);
+    }
+
+    viewModel.deleteSelectedTweets = function(){
+        createBackup();
+        viewModel.tweets.removeAll(viewModel.selectedTweets());
+    }
+
+    function randomString(len, charSet) {
+        charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var randomString = '';
+        for (var i = 0; i < len; i++) {
+            var randomPoz = Math.floor(Math.random() * charSet.length);
+            randomString += charSet.substring(randomPoz,randomPoz+1);
+        }
+        return randomString;
+    }
+
+    /*
+    Create random tweets
+     */
+    var numberOfTest = 10;
+    for(var i = 0; i < numberOfTest; i++){
+        viewModel.tweets.push(new Tweet(randomString(7), randomString(80)));
+    }
+
+    ko.applyBindings(viewModel);
+
+</script>

@@ -1,0 +1,34 @@
+#{extends 'main.html' /} #{set title:'Tabs' /}
+
+
+<ul class="tabs">
+	<li data-bind="click : function(){viewModel.selectedTab(1)}, css : { active : viewModel.selectedTab() === 1}">
+		<a href="#">Tab1</a>
+	</li>
+	<li data-bind="click : function(){viewModel.selectedTab(2)}, css : { active : viewModel.selectedTab() === 2}">
+		<a href="#">Tab2</a>
+	</li>
+	<li data-bind="click : function(){viewModel.selectedTab(3)}, css : { active : viewModel.selectedTab() === 3}">
+		<a href="#">Tab3</a>
+	</li>
+</ul>
+
+<div data-bind="visible : viewModel.selectedTab() === 1">
+	Contenido de Tab1
+</div>
+
+<div data-bind="visible : viewModel.selectedTab() === 2">
+	Contenido de Tab2
+</div>
+
+<div data-bind="visible : viewModel.selectedTab() === 3">
+	Contenido de Tab3
+</div>
+
+<script>
+	var viewModel = {
+		selectedTab : ko.observable()
+	}
+	
+	ko.applyBindings(viewModel);	
+</script>

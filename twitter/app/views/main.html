@@ -46,7 +46,7 @@
           </ul>
 
           <form action="@{Secure.logout}" class="pull-right">
-            <button class="btn" type="submit">${controllers.Security.userConnected().username} - &{'salir'}</button>
+            <button class="btn" type="submit">${controllers.Security.userConnected()?.username} - &{'salir'}</button>
           </form>
         </div>
       </div>

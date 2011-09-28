@@ -48,13 +48,13 @@ public class ModelTest extends UnitTest {
 		User u1 = new User("user1", "password1");
 		u1.save();
 		
-		Tweet t1 = new Tweet("msg1", u1);
+		Tweet t1 = Tweet.create("msg1", u1);
 		t1.save();
 		
-		Tweet t2 = new Tweet("msg2", u1);
+		Tweet t2 = Tweet.create("msg2", u1);
 		t2.save();
 		
-		Tweet t3 = new Tweet("msg3", u1);
+		Tweet t3 = Tweet.create("msg3", u1);
 		t3.save();
 		
 		long count = Tweet.count();
@@ -74,13 +74,13 @@ public class ModelTest extends UnitTest {
 		User u2 = new User("user2", "password2");
 		u2.save();
 		
-		Tweet t1 = new Tweet("msg1", u1);
+		Tweet t1 = Tweet.create("msg1", u1);
 		t1.save();
 		
-		Tweet t2 = new Tweet("msg2", u1);
+		Tweet t2 = Tweet.create("msg2", u1);
 		t2.save();
 		
-		Tweet t3 = new Tweet("msg3", u2);
+		Tweet t3 = Tweet.create("msg3", u2);
 		t3.save();
 		
 		long count = Tweet.count();
@@ -98,13 +98,13 @@ public class ModelTest extends UnitTest {
 	public void test4() throws ParseException{
 	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-		Tweet t1 = new Tweet("tweet1", null);
+		Tweet t1 = Tweet.create("tweet1", (User)null);
 		t1.date = formatter.parse("01/01/2000");
 		t1.save();
-		Tweet t2 = new Tweet("tweet2", null);
+		Tweet t2 = Tweet.create("tweet2", (User)null);
 		t2.date = formatter.parse("01/02/2000");
 		t2.save();
-		Tweet t3 = new Tweet("tweet3", null);
+		Tweet t3 = Tweet.create("tweet3",(User)null);
 		t3.date = formatter.parse("02/01/2010");
 		t3.save();
 		
