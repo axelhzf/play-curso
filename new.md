@@ -91,6 +91,13 @@ play eclipsify
 {% endhighlight %}
 
 Para importar el proyecto desde Eclipse
-<pre>
-File/Import/General/Existing project
-</pre>
+
+	File/Import/General/Existing project
+
+¿Cómo Depurar?
+
+eclipse/twitter.launch  -> Botón derecho/Run As/Twitter
+
+eclipse/Connect JPDA to twitter.launch -> Botón derecho/Debug As/Connect JPDA to twitter	
+
+Pruébalo colocando un breakpoint y revisa en la pestaña debug de Eclipse.

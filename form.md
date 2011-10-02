@@ -3,6 +3,8 @@ layout: default
 title: Formularios
 ---
 
+{% assign solucion = false %}
+
 Una parte importante de todas las aplicaciones web son los formularios. Donde se le permite al usuario enviar información al servidor. En nuestro caso, el formulario más importante es el que le permite a un usuario enviar un nuevo tweet.
 
 Un ejemplo de formulario en play sería el siguiente:
@@ -86,6 +88,8 @@ Añadir un formulario en el Timeline para permitirle al usuario enviar un nuevo 
 * Prueba a enviar tweets con distintos usuarios
 * Prueba que la página de estadísticas actualiza con los nuevos tweets
 
+{% if solucion == true %}
+
 ## Solución
 
 apps/views/Timeline/index.html
@@ -118,3 +122,5 @@ conf/routes
 <div class="alert-message warning">
 Puedes descargarte la solución completa desde <a href="https://github.com/axelhzf/play-curso/commit/c089b30c58b2de7641631ec803c1afc280533e4b">https://github.com/axelhzf/play-curso/commit/c089b30c58b2de7641631ec803c1afc280533e4b</a>
 </div>
+
+{% endif %}

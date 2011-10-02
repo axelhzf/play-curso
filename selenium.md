@@ -3,6 +3,8 @@ layout: default
 title : Test con selenium
 ---
 
+{% assign solucion = false %}
+
 [Selenium](http://seleniumhq.org/) es una librería que te permite probar las interfaces de usuario. Permite automatizar las acciones que puede realiza un usuario en la aplicación, de forma que se puede comprar si la interfaz de usuario se comporta correctamente.
 
 ## Utilizando Selenium IDE
@@ -27,6 +29,8 @@ Vamos a crear una página donde pondremos unas pestaña (tabs). La implementaci�
 * Crea una página con unos tabs, con los estilos de twitter bootstrap
 * Añade el comportambién de pestañas con knockout.js
 * Crea un test de selenium, que haga click en los diferentes tabs y compruebe que el contenido que se muestra es el correcto
+
+{% if solucion == true %}
 
 ## Solución
 
@@ -91,3 +95,5 @@ Test de selenium
     
 #{/selenium}
 {% endhighlight %}
+
+{% endif %}

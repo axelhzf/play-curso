@@ -3,6 +3,8 @@ layout: default
 title: Ajax
 ---
 
+{% assign solucion = false %}
+
 Vamos a mejorar nuestro Timeline añadiendo [AJAX](http://en.wikipedia.org/wiki/AJAX) para evitar la recarga completa de la página cuando se envía un nuevo tweet. El objetivo es enviar un tweet mediante AJAX y si todo va bien, consultar de nuevo el timeline y actualizarlo.
 
 Vamos a crear una API para nuestra aplicación, que nos permita desde javascript hacer las consultas adecuadas. Como formato para las respuesta vamos a utilizar [JSON](http://en.wikipedia.org/wiki/JSON), por su facilidad para trabajar con él desde javascript.
@@ -146,11 +148,6 @@ Para la vista vamos a utilizar [jQuery](http://jquery.com/) y [Knockout.js](http
 
 * [jQuery](http://jquery.com/) es una de las librerías más utilizadas en la actualidad. La utilizaremos para manipular el DOM y para hacer peticiones AJAX
 * [Knockout.js](http://knockoutjs.com/) implementa el patrón Model-View-View Model y permite tener sincronizada la interfaz del usuario de una forma muy sencilla
-
-## Introducción a jQuery
-
-
-## Introducción a Knockout.js
 
 
 ## Implementación
@@ -427,7 +424,7 @@ Hasta ahora nuestra aplicación no es más que una especie de tablón de anuncio
 * Mostrar botones de follow y unfollow
 * Hacerlo implementando los métodos en el API y haciendo las llamadas mediante javascript
 
-
+{% if solucion == true %}
 ## Solución
 
 Para mostrar la información de el número de personas que sigue y que son seguidas por un usuario vamos a modificar la entidad User y añadir un nuevo método en nuestra API.
@@ -786,3 +783,5 @@ viewModel.unfollowUser = function(){
 <div class="alert-message warning">
 Puedes descargar la solución desde <a href="https://github.com/axelhzf/play-curso/commit/9645a201a95a95f8ab628a8e4f10fa90077b9f25">https://github.com/axelhzf/play-curso/commit/9645a201a95a95f8ab628a8e4f10fa90077b9f25</a>
 </div>
+
+{% endif %}

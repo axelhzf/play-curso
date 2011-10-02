@@ -3,9 +3,11 @@ layout : default
 title: Modelo
 ---
 
+{% assign solucion = false %}
+
 Una representación del módelo de nuestro twitter simple podría ser la siguiente.
 
-![Modelo de twitter](/images/modelo.png)
+![Modelo de twitter](images/modelo.png)
 
 * Entidad **User**, con **username** y **password**.
 * Entidad **Tweet**, con el contenido del tweet **msg** y la fecha de publicación **date**.
@@ -234,7 +236,9 @@ Partiendo del modelo de datos definido anteriormente. El objetivo de este ejerci
 * Consulta la documentación de la clase [Fixtures](http://www.playframework.org/documentation/api/1.2.3/play/test/Fixtures.html)
 * No olvides extender de la clase UnitTest
 * No olvides anotar tus métodos con @Test
-* Puedes utilizar [este fichero para poblar la base de datos](/resources/initial-data.yml)
+* Puedes utilizar [este fichero para poblar la base de datos](resources/initial-data.yml)
+ 
+{% if solucion == true %}
 
 ## Solución
 
@@ -444,3 +448,5 @@ public class ModelTest extends UnitTest {
 	}
 }
 {% endhighlight %}
+
+{% endif %}
