@@ -3,7 +3,7 @@ layout : default
 title: Modelo
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 Una representación del módelo de nuestro twitter simple podría ser la siguiente.
 
