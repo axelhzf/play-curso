@@ -3,7 +3,7 @@ layout: default
 title: Formularios
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 Una parte importante de todas las aplicaciones web son los formularios. Donde se le permite al usuario enviar información al servidor. En nuestro caso, el formulario más importante es el que le permite a un usuario enviar un nuevo tweet.
 
