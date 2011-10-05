@@ -3,7 +3,7 @@ layout: default
 title: Validación
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 <div class="alert-message warning">
 Página de documentación de validacion <a href="http://www.playframework.org/documentation/1.2.3/validation">http://www.playframework.org/documentation/1.2.3/validation</a>

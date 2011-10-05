@@ -88,7 +88,7 @@ Añadir un formulario en el Timeline para permitirle al usuario enviar un nuevo 
 * Prueba a enviar tweets con distintos usuarios
 * Prueba que la página de estadísticas actualiza con los nuevos tweets
 
-{% if solucion == true %}
+
 
 ## Solución
 
@@ -122,5 +122,3 @@ conf/routes
 <div class="alert-message warning">
 Puedes descargarte la solución completa desde <a href="https://github.com/axelhzf/play-curso/commit/c089b30c58b2de7641631ec803c1afc280533e4b">https://github.com/axelhzf/play-curso/commit/c089b30c58b2de7641631ec803c1afc280533e4b</a>
 </div>
-
-{% endif %}
