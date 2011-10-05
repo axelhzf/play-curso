@@ -3,7 +3,7 @@ layout: default
 title: Módulo Secure
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 El módulo Secure es uno de los módulos que vienen por defecto con la distribución de Play. Permite añadir login mediante usuario y contraseña a nuestra aplicación.
 
