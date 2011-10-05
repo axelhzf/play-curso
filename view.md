@@ -3,7 +3,7 @@ layout: default
 title: Vista
 subtitle: Template engine
 ---
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 
 <div class="alert-message warning">
