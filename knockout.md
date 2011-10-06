@@ -46,7 +46,7 @@ Enlazamos los css y js que vamos a utilizar:
 * knockout.js
 
 
-{% highlight html linenos %}
+{% highlight html %}
 <!doctype html>
 <html>
 <head>
@@ -68,7 +68,7 @@ Enlazamos los css y js que vamos a utilizar:
 Añadimos la tabla donde mostraremos el listado de Post en 3 columnas. La primera de selección, la segunda el título y luego el texto.
 
 
-{% highlight html linenos %}
+{% highlight html %}
 <div class="container">
     <table>
         <thead>
@@ -87,7 +87,7 @@ Añadimos la tabla donde mostraremos el listado de Post en 3 columnas. La primer
 
 El viewModel contará con un listado de post que se mostrarán en la tabla
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 <script>
      function containsIgnoreCase(s, q){
         return s.toLowerCase().indexOf(q.toLowerCase()) != -1;
@@ -119,7 +119,7 @@ En la clase Post se han definido los 3 campos como variables observables, para q
 
 Para mostrar los posts en la tabla. Creamos una nueva plantilla que mostrará el contenido de cada fila.
 
-{% highlight html linenos %}
+{% highlight html %}
 <script type="text/html" id="postRow">
     <tr>
         <td><input type="checkbox" data-bind="checked: selected" /></td>
@@ -131,13 +131,13 @@ Para mostrar los posts en la tabla. Creamos una nueva plantilla que mostrará el
 
 Y añadimos en binding en la tabla para que renderice la plantilla "postRow" con el listado de "posts".
 
-{% highlight html linenos %}
+{% highlight html %}
     <tbody data-bind="template : {name : 'postRow', foreach: posts}" />
 {% endhighlight %}
 
 Con este código ya tenemos sincronizada la tabla con la lista de Posts. Para hacer una prueba podemos abrir la consola javascript y añadir un nuevos post.
 
-{% highlight html linenos %}
+{% highlight html %}
     viewModel.posts.push(new Post('prueba', 'desde la consola de javascript!');
 {% endhighlight %}
 
@@ -150,7 +150,7 @@ Para añadir filtrado de la tabla vamos a almacenar dos arrays, uno con la lista
 
 Añadimos un campo de texto donde vamos a escribir el filtro. El evento por defecto que actualiza el viewModel es cuando pierde foco. Para hacer un filtrado en tiempo real podemos cambiar el evento de actualización a 'afterkeydown'.
 
-{% highlight html linenos %}
+{% highlight html %}
 <div class="container">
     ...
 
@@ -165,7 +165,7 @@ Añadimos un campo de texto donde vamos a escribir el filtro. El evento por defe
 
 Modificamos el viewModel para añadir el texto por el que se filtra y la lista de posts filtrados. Definimos la variable filteredPost como dependentObservable, de esta forma, cada vez que se actualice la lista de post, se volverá a evaluar la lista de post filtrados. En el caso de que el filtro esté vacio, mostramos la lista de todos los posts.
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 var viewModel = {
     posts : ko.observableArray([]),
     filterQuery : ko.observable('')
@@ -189,7 +189,7 @@ viewModel.filteredPosts = ko.dependentObservable(function(){
 
 Modificamos el binding de la tabla para mostrar la lista de posts filtrados.
 
-{% highlight html linenos %}
+{% highlight html %}
     <tbody data-bind="template : {name : 'postRow', foreach: filteredPosts}" />
 {% endhighlight %}
 
@@ -200,7 +200,7 @@ Para permitir la edición inline vamos a añadir una nueva variable que nos indi
 
 Botones para realizar las acciones.
 
-{% highlight html linenos %}
+{% highlight html %}
 <div class="container">
     ...
 
@@ -217,7 +217,7 @@ Botones para realizar las acciones.
 
 La plantilla muestra el texto o un input dependiendo del campo editMode.
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 <script type="text/html" id="postRow">
     <tr>
         <td><input type="checkbox" data-bind="checked: selected" /></td>
@@ -235,7 +235,7 @@ La plantilla muestra el texto o un input dependiendo del campo editMode.
 
 Añadimos las acciones al modelo.
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 var viewModel = {
     posts : ko.observableArray([]),
     filterQuery : ko.observable(''),
