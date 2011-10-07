@@ -3,7 +3,7 @@ layout: default
 title: Ajax
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 Vamos a mejorar nuestro Timeline añadiendo [AJAX](http://en.wikipedia.org/wiki/AJAX) para evitar la recarga completa de la página cuando se envía un nuevo tweet. El objetivo es enviar un tweet mediante AJAX y si todo va bien, consultar de nuevo el timeline y actualizarlo.
 
