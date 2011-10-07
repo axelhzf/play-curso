@@ -3,7 +3,7 @@ layout: default
 title: Búsquedas con Elastic Search
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 Vamos a añadir a nuestra página capacidades de buscas contenido en los tweets de los usuarios. Podríamos hacerlo mediante una consulta en la base de datos. Esto funcionaría bien con pocos tweets. Pero cuando el número de tweets creciera no tendríamos un buen rendimiento, tenemos que indexar el contenido de los tweets para poder hacer búsquedas mucho mas eficientes.
 
