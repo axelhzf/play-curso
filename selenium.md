@@ -3,7 +3,7 @@ layout: default
 title : Test con selenium
 ---
 
-{% assign solucion = false %}
+{% assign solucion = true %}
 
 [Selenium](http://seleniumhq.org/) es una librería que te permite probar las interfaces de usuario. Permite automatizar las acciones que puede realiza un usuario en la aplicación, de forma que se puede comprar si la interfaz de usuario se comporta correctamente.
 
