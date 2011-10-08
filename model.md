@@ -3,6 +3,8 @@ layout : default
 title: Modelo
 ---
 
+{% assign solucion = true %}
+
 Una representación del módelo de nuestro twitter simple podría ser la siguiente.
 
 ![Modelo de twitter](images/modelo.png)
@@ -235,6 +237,8 @@ Partiendo del modelo de datos definido anteriormente. El objetivo de este ejerci
 * No olvides extender de la clase UnitTest
 * No olvides anotar tus métodos con @Test
 * Puedes utilizar [este fichero para poblar la base de datos](resources/initial-data.yml)
+ 
+{% if solucion == true %}
 
 ## Solución
 
@@ -444,3 +448,5 @@ public class ModelTest extends UnitTest {
 	}
 }
 {% endhighlight %}
+
+{% endif %}
