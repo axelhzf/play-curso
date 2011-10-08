@@ -3,6 +3,8 @@ layout: default
 title: Formularios
 ---
 
+{% assign solucion = true %}
+
 Una parte importante de todas las aplicaciones web son los formularios. Donde se le permite al usuario enviar información al servidor. En nuestro caso, el formulario más importante es el que le permite a un usuario enviar un nuevo tweet.
 
 Un ejemplo de formulario en play sería el siguiente:
@@ -85,6 +87,8 @@ Añadir un formulario en el Timeline para permitirle al usuario enviar un nuevo 
 * Añade una ruta de tipo POST en el fichero de rutas
 * Prueba a enviar tweets con distintos usuarios
 * Prueba que la página de estadísticas actualiza con los nuevos tweets
+
+
 
 ## Solución
 

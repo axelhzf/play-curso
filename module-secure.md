@@ -3,6 +3,8 @@ layout: default
 title: Módulo Secure
 ---
 
+{% assign solucion = true %}
+
 El módulo Secure es uno de los módulos que vienen por defecto con la distribución de Play. Permite añadir login mediante usuario y contraseña a nuestra aplicación.
 
 ## Instalación
@@ -191,6 +193,8 @@ Consejos:
 
 * Puede que en la documentación no esté, pero existe un tag para hacer las comprobaciones que hace check. Búscalo en el código fuente.
 
+{% if solucion == true %}
+
 ## Solución
 
 Modifica la entidad User
@@ -257,3 +261,5 @@ Modifica la plantilla para ocultar el enlace a la página de estadísticas si el
 <div class="alert-message warning">
 Puedes descargarte la solución completa desde <a href="https://github.com/axelhzf/play-curso/tree/60d3d27f62c041bf82d27879e5639af3b8ffc476">https://github.com/axelhzf/play-curso/tree/60d3d27f62c041bf82d27879e5639af3b8ffc476</a>
 </div>
+
+{% endif %}

@@ -30,7 +30,7 @@ Modificamos nuestra plantilla para adaptar el contenido
 
 app/views/main.html
 
-{% highlight html linenos %}
+{% highlight html %}
 <!DOCTYPE html>
 
 <html>
@@ -89,7 +89,7 @@ app/views/main.html
 
 public/stylesheets/main.css
 
-{% highlight css linenos %}
+{% highlight css %}
 html,body {
 	background-color: #eee;
 }

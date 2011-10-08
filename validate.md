@@ -3,6 +3,8 @@ layout: default
 title: Validación
 ---
 
+{% assign solucion = true %}
+
 <div class="alert-message warning">
 Página de documentación de validacion <a href="http://www.playframework.org/documentation/1.2.3/validation">http://www.playframework.org/documentation/1.2.3/validation</a>
 </div>
@@ -70,6 +72,8 @@ Play trae una serie de tags que te permiten mostrar los errores de validación.
 * \#{ifError 'user.name'} 
 * \#{ifErrors} 
 
+
+
 ## Ejercicio
 
 Añade validación al formulario que envía el tweet.
@@ -77,6 +81,8 @@ Añade validación al formulario que envía el tweet.
 * Un tweet no puede estar vacío
 * Un tweet no puede tener más de 140 caracteres
 * Muestra los mensajes de error con el estilo adecuado de [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html#alerts)
+
+{% if solucion == true %}
 
 ## Solución
 
@@ -112,3 +118,5 @@ app/views/Timeline/index.html
 <div class="alert-message warning">
 Puedes descargarte el código desde <a href="https://github.com/axelhzf/play-curso/tree/4ac2865ae7546a82fc3e602f3eae2aabec83696c">https://github.com/axelhzf/play-curso/tree/4ac2865ae7546a82fc3e602f3eae2aabec83696c</a>
 </div>
+
+{% endif %}

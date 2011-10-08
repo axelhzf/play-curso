@@ -3,6 +3,8 @@ layout: default
 title: Búsquedas con Elastic Search
 ---
 
+{% assign solucion = true %}
+
 Vamos a añadir a nuestra página capacidades de buscas contenido en los tweets de los usuarios. Podríamos hacerlo mediante una consulta en la base de datos. Esto funcionaría bien con pocos tweets. Pero cuando el número de tweets creciera no tendríamos un buen rendimiento, tenemos que indexar el contenido de los tweets para poder hacer búsquedas mucho mas eficientes.
 
 Para añadir esta funcionalidad vamos a utilizar el módulo [Elastic Search](http://www.playframework.org/modules/elasticsearch-0.2/home) creado por [@_felipera](http://twitter.com/#!/_felipera).
@@ -133,6 +135,8 @@ Implementar la búsqueda en tiempo real.
 * Crear un nuevo método en el API que permita realizar la búsqueda
 * A medida que el usuario va escribiendo en la caja de texto, realiza una nueva consulta
 
+{% if solucion == true %}
+
 ## Solución
 
 app/controllers/Api.java
@@ -213,3 +217,5 @@ app/views/search.html
 <div class="alert-message warning">
 Puedes bajarte la solución desde <a href="https://github.com/axelhzf/play-curso/commit/282c8e2f80168db994415db60121bddf1e6badc4">https://github.com/axelhzf/play-curso/commit/282c8e2f80168db994415db60121bddf1e6badc4</a>
 </div>
+
+{% endif %}

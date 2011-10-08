@@ -3,6 +3,8 @@ layout: default
 title: Vista
 subtitle: Template engine
 ---
+{% assign solucion = true %}
+
 
 <div class="alert-message warning">
 	<p>Enlace a la documentación de play </p>
@@ -195,6 +197,7 @@ Consejos:
 * Utiliza **group by** y **count** para contar cuantos tweets ha escrito cada usuario [Documentación](http://www.objectdb.com/java/jpa/query/jpql/group)
 * El tag lista permite obtener el indice del elemento por el que va el bucle en la variable item_index
 
+{% if solucion == true %}
 ## Solución
 
 Crea la nueva ruta
@@ -264,3 +267,4 @@ apps/views/Timeline/stats.js
 <div class="alert-message warning">
 Puedes descargarte el código completo desde <a href="https://github.com/axelhzf/play-curso/tree/ea2682636fb1e36b22826324fce9ee13f93f687e">https://github.com/axelhzf/play-curso/tree/ea2682636fb1e36b22826324fce9ee13f93f687e</a>
 </div>
+{% endif %}
